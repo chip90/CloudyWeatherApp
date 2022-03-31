@@ -48,6 +48,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         DataService.instance.lat = first.coordinate.latitude
         
         DataService.instance.getWeather()
+        DataService.instance.getCityName()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

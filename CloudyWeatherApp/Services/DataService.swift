@@ -18,6 +18,7 @@ class DataService {
     public private(set) var hourly = Array<HourlyWeather>()
     public private(set) var daily = Array<DailyWeather>()
     public private(set) var current_dt: String?
+    public private(set) var cityName: String?
     
     var lat: Double = 0.0
     var lon: Double = 0.0
@@ -41,6 +42,19 @@ class DataService {
             }
         }
         
+    }
+    
+    func getCityName() {
+        NetworkService.shared.getCurrentCityName(lat: lat, lon: lon) { [weak self] result in
+            switch result {
+            case .success(let cityNameData):
+                self?.cityName = cityNameData.cities.first?.name
+                self?.delegate?.weatherDidUpdate()
+                print(cityNameData)
+            case .failure(let error):
+                print("City Name Error: \(error)")
+            }
+        }
     }
     
     func dateFormatting(value: TimeInterval) -> String {

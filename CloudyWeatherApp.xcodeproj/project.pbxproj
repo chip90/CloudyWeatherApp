@@ -18,6 +18,7 @@
 		123A9F4E27C1300F0039DB4B /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123A9F4D27C1300F0039DB4B /* WeatherData.swift */; };
 		123A9F5027C14C190039DB4B /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123A9F4F27C14C190039DB4B /* NetworkService.swift */; };
 		125DEF2527C1BA7B00F47D5F /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125DEF2427C1BA7B00F47D5F /* APIError.swift */; };
+		1269357327F663F40008575F /* CityNameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1269357227F663F40008575F /* CityNameData.swift */; };
 		1288F1B227C3202900B090B1 /* WeatherDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1288F1B127C3202900B090B1 /* WeatherDetailCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		123A9F4D27C1300F0039DB4B /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		123A9F4F27C14C190039DB4B /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		125DEF2427C1BA7B00F47D5F /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		1269357227F663F40008575F /* CityNameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityNameData.swift; sourceTree = "<group>"; };
 		1288F1B127C3202900B090B1 /* WeatherDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +97,7 @@
 			children = (
 				123A9F4D27C1300F0039DB4B /* WeatherData.swift */,
 				125DEF2427C1BA7B00F47D5F /* APIError.swift */,
+				1269357227F663F40008575F /* CityNameData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				1288F1B227C3202900B090B1 /* WeatherDetailCell.swift in Sources */,
 				123A9F3827C127D40039DB4B /* SceneDelegate.swift in Sources */,
 				125DEF2527C1BA7B00F47D5F /* APIError.swift in Sources */,
+				1269357327F663F40008575F /* CityNameData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
