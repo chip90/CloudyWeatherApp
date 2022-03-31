@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct APIError: Codable {
+struct APIError: Codable, Error {
     let cod: Int
     let message: String
 }

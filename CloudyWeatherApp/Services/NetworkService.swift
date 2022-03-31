@@ -12,7 +12,7 @@ class NetworkService {
     
     let session = URLSession(configuration: .default)
     
-    func getCurrentWeather(lat: Double, lon: Double, onSuccess:  @escaping (WeatherData) -> Void, onError: @escaping (String) -> Void) {
+    func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (Result<WeatherData, Error>) -> Void) {
         
         let exclude = "minutely"
         let apiKey = "65fa0a6c945f630a7628c3c99437015a"
@@ -24,25 +24,25 @@ class NetworkService {
             
             DispatchQueue.main.async {
                 if let error = error {
-                    onError(error.localizedDescription)
+                    completion(.failure(error))
                     return
                 }
                 
                 guard let data = data, let response = response as? HTTPURLResponse else {
-                    onError("Invalid data or response")
+                    completion(.failure(NSError(domain: "No Data", code: 422, userInfo: nil)))
                     return
                 }
                 
                 do {
                     if response.statusCode == 200 {
                         let current = try JSONDecoder().decode(WeatherData.self, from: data)
-                        onSuccess(current)
+                        completion(.success(current))
                     } else {
                         let err = try JSONDecoder().decode(APIError.self, from: data)
-                        onError(err.message)
+                        completion(.failure(err))
                     }
                 } catch {
-                    onError(error.localizedDescription)
+                    completion(.failure(error))
                 }
             }
         }

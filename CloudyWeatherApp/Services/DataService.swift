@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DataServiceDelegate: AnyObject {
-    
+    func weatherDidUpdate()
 }
 
 class DataService {
@@ -17,24 +17,30 @@ class DataService {
         
     public private(set) var hourly = Array<HourlyWeather>()
     public private(set) var daily = Array<DailyWeather>()
-    public private(set) var current_dt = ""
+    public private(set) var current_dt: String?
     
     var lat: Double = 0.0
     var lon: Double = 0.0
+    
+    weak var delegate: DataServiceDelegate?
     
     func getLocation() {
         LocationService.shared.getLocation()
     }
 
     func getWeather() {
-        NetworkService.shared.getCurrentWeather(lat: lat, lon: lon) { weatherdata in
-            self.hourly = weatherdata.hourly
-            self.daily = weatherdata.daily
-            self.current_dt = self.dateFormatting(value: weatherdata.current.dt)
-            print(self.tempConvert(temp: weatherdata.current.temp))
-        } onError: { errorMessage in
-            debugPrint(errorMessage)
+        NetworkService.shared.getCurrentWeather(lat: lat, lon: lon) { [weak self] result in
+            switch result {
+            case .success(let weatherdata):
+                self?.hourly = weatherdata.hourly
+                self?.daily = weatherdata.daily
+                self?.current_dt = self?.dateFormatting(value: weatherdata.current.dt)
+                self?.delegate?.weatherDidUpdate()
+            case .failure(let error):
+                print("Weather Error: \(error)")
+            }
         }
+        
     }
     
     func dateFormatting(value: TimeInterval) -> String {

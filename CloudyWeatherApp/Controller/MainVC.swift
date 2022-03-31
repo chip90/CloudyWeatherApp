@@ -22,13 +22,8 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         weatherDetails.dataSource = self
         weatherDetails.delegate = self
         
+        DataService.instance.delegate = self
         DataService.instance.getLocation()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        todayDateLbl.text = DataService.instance.current_dt
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -52,6 +47,16 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     @IBAction func thisWeekBtn(_ sender: Any) {
     }
+    
+}
+
+extension MainVC: DataServiceDelegate {
+    func weatherDidUpdate() {
+        todayDateLbl.text = DataService.instance.current_dt
+        
+        weatherDetails.reloadData()
+    }
+    
     
 }
 
