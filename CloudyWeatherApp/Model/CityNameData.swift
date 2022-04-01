@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct CityNameData: Codable {
-    let cities: Array<City>
-}
+//struct CityNameData: Codable {
+//    let cities: Array<City>
+//}
 
 struct City: Codable {
     let name: String

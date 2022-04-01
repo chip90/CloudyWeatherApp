@@ -19,6 +19,9 @@ class DataService {
     public private(set) var daily = Array<DailyWeather>()
     public private(set) var current_dt: String?
     public private(set) var cityName: String?
+    public private(set) var weatherDescription: String?
+    public private(set) var current_temp: String?
+    public private(set) var imageNmae: String?
     
     var lat: Double = 0.0
     var lon: Double = 0.0
@@ -36,6 +39,8 @@ class DataService {
                 self?.hourly = weatherdata.hourly
                 self?.daily = weatherdata.daily
                 self?.current_dt = self?.dateFormatting(value: weatherdata.current.dt)
+                self?.weatherDescription = weatherdata.current.weather.first?.description
+                self?.current_temp = self?.tempConvert(temp: weatherdata.current.temp)
                 self?.delegate?.weatherDidUpdate()
             case .failure(let error):
                 print("Weather Error: \(error)")
@@ -48,13 +53,30 @@ class DataService {
         NetworkService.shared.getCurrentCityName(lat: lat, lon: lon) { [weak self] result in
             switch result {
             case .success(let cityNameData):
-                self?.cityName = cityNameData.cities.first?.name
+                self?.cityName = cityNameData.first?.name
                 self?.delegate?.weatherDidUpdate()
                 print(cityNameData)
             case .failure(let error):
                 print("City Name Error: \(error)")
             }
         }
+    }
+    
+    func getImageName(icon: String) -> String {
+        if icon == "01d" || icon == "01n" {
+            return "Sunny"
+        }
+        if icon == "02d" || icon == "02n" {
+            return "Partly Cloudy"
+        }
+        if icon == "03d" || icon == "03n" {
+            return "Cloudy"
+        }
+        if icon == "03d" || icon == "03n" {
+            return "Cloudy"
+        }
+        
+        return "Cloudy"
     }
     
     func dateFormatting(value: TimeInterval) -> String {
