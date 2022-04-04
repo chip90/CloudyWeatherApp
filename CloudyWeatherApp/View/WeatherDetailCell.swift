@@ -33,5 +33,6 @@ class WeatherDetailCell: UICollectionViewCell {
     func updateView(day: DailyWeather) {
         lblDate.text = dateFormatting(value: day.dt)
         lblTemp.text = tempConvert(temp: day.temp.day)
+        imgWeather.image = UIImage(named: DataService.instance.getImageName(icon: day.weather.first?.icon ?? ""))
     }
 }

@@ -41,6 +41,7 @@ class DataService {
                 self?.current_dt = self?.dateFormatting(value: weatherdata.current.dt)
                 self?.weatherDescription = weatherdata.current.weather.first?.description
                 self?.current_temp = self?.tempConvert(temp: weatherdata.current.temp)
+                self?.imageNmae = weatherdata.current.weather.first?.icon
                 self?.delegate?.weatherDidUpdate()
             case .failure(let error):
                 print("Weather Error: \(error)")
@@ -67,16 +68,22 @@ class DataService {
             return "Sunny"
         }
         if icon == "02d" || icon == "02n" {
-            return "Partly Cloudy"
+            return "PartiallyCloudy"
         }
-        if icon == "03d" || icon == "03n" {
+        if icon == "03d" || icon == "03n" || icon == "04d" || icon == "04n" {
             return "Cloudy"
         }
-        if icon == "03d" || icon == "03n" {
-            return "Cloudy"
+        if icon == "09d" || icon == "09n" || icon == "10d" || icon == "10n" {
+            return "Rainy"
+        }
+        if icon == "11d" || icon == "11n" {
+            return "Rainy"
+        }
+        if icon == "13d" || icon == "13n" {
+            return "Snow"
         }
         
-        return "Cloudy"
+        return ""
     }
     
     func dateFormatting(value: TimeInterval) -> String {

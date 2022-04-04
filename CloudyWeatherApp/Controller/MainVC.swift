@@ -16,6 +16,12 @@ class MainVC: UIViewController {
     @IBOutlet weak var tempLbl: UILabel!
     
     @IBOutlet weak var weatherDetails: UICollectionView!
+    
+    enum weatherSelector {
+        case history, today, week
+    }
+    
+    var selectedWeather: weatherSelector = .today
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +33,18 @@ class MainVC: UIViewController {
     }
     
     @IBAction func yesterdayBtn(_ sender: Any) {
+        selectedWeather = .history
+        weatherDetails.reloadData()
     }
     
     @IBAction func todayBtn(_ sender: Any) {
+        selectedWeather = .today
+        weatherDetails.reloadData()
     }
     
     @IBAction func thisWeekBtn(_ sender: Any) {
+        selectedWeather = .week
+        weatherDetails.reloadData()
     }
     
 }
@@ -40,11 +52,20 @@ class MainVC: UIViewController {
 extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        switch selectedWeather {
+        case .today:
+            return DataService.instance.hourly.count
+        case .week:
+            return DataService.instance.daily.count
+        case .history:
+            break
+        }
         return DataService.instance.daily.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
         let cell = weatherDetails.dequeueReusableCell(withReuseIdentifier: "weatherCell", for: indexPath) as! WeatherDetailCell
         let day = DataService.instance.daily[indexPath.row]
         cell.updateView(day: day)
@@ -59,7 +80,7 @@ extension MainVC: DataServiceDelegate {
         locationLbl.text = DataService.instance.cityName
         weatherDescriptionLbl.text = DataService.instance.weatherDescription
         tempLbl.text = DataService.instance.current_temp
-        weatherImage.image = UIImage(named: "Snow")
+        weatherImage.image = UIImage(named: DataService.instance.getImageName(icon: DataService.instance.imageNmae ?? ""))
         weatherDetails.reloadData()
     }
     
