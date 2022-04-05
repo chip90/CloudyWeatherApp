@@ -22,6 +22,7 @@ class DataService {
     public private(set) var weatherDescription: String?
     public private(set) var current_temp: String?
     public private(set) var imageNmae: String?
+    public private(set) var dateTime: TimeInterval?
     
     var lat: Double = 0.0
     var lon: Double = 0.0
@@ -39,6 +40,7 @@ class DataService {
                 self?.hourly = weatherdata.hourly
                 self?.daily = weatherdata.daily
                 self?.current_dt = self?.dateFormatting(value: weatherdata.current.dt)
+                self?.dateTime = weatherdata.current.dt
                 self?.weatherDescription = weatherdata.current.weather.first?.description
                 self?.current_temp = self?.tempConvert(temp: weatherdata.current.temp)
                 self?.imageNmae = weatherdata.current.weather.first?.icon
@@ -47,6 +49,10 @@ class DataService {
                 print("Weather Error: \(error)")
             }
         }
+        
+    }
+    
+    func getHistory() {
         
     }
     
