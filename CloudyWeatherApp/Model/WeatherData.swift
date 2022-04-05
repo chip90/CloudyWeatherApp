@@ -16,6 +16,14 @@ struct WeatherData: Codable {
     let daily: Array<DailyWeather>
 }
 
+struct HistoryWeatherData: Codable {
+    let lat: Double
+    let lon: Double
+    let timezone: String
+    let current: Currently
+    let hourly: Array<HourlyWeather>
+}
+
 struct Currently: Codable {
     let dt: TimeInterval
     let sunrise: TimeInterval

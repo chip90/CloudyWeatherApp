@@ -54,7 +54,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch selectedWeather {
         case .today:
-            return DataService.instance.hourly.count
+            return DataService.instance.daily.count
         case .week:
             return DataService.instance.daily.count
         case .history:
