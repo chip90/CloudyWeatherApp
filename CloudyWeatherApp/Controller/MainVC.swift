@@ -80,7 +80,7 @@ extension MainVC: DataServiceDelegate {
         locationLbl.text = DataService.instance.cityName
         weatherDescriptionLbl.text = DataService.instance.weatherDescription
         tempLbl.text = DataService.instance.current_temp
-        weatherImage.image = UIImage(named: DataService.instance.getImageName(icon: DataService.instance.imageNmae ?? ""))
+        weatherImage.image = UIImage(named: DataService.instance.getImageName(icon: DataService.instance.imageNmae ?? "Cloudy"))
         weatherDetails.reloadData()
     }
     
