@@ -37,14 +37,17 @@ class DataService {
         NetworkService.shared.getCurrentWeather(lat: lat, lon: lon) { [weak self] result in
             switch result {
             case .success(let weatherdata):
-                self?.hourly = weatherdata.hourly
-                self?.daily = weatherdata.daily
-                self?.current_dt = self?.dateFormatting(value: weatherdata.current.dt)
-                self?.dateTime = weatherdata.current.dt
-                self?.weatherDescription = weatherdata.current.weather.first?.description
-                self?.current_temp = self?.tempConvert(temp: weatherdata.current.temp)
-                self?.imageNmae = weatherdata.current.weather.first?.icon
-                self?.delegate?.weatherDidUpdate()
+                DispatchQueue.main.async {
+                    self?.hourly = weatherdata.hourly
+                    self?.daily = weatherdata.daily
+                    self?.current_dt = self?.dateFormatting(value: weatherdata.current.dt)
+                    self?.dateTime = weatherdata.current.dt
+                    self?.weatherDescription = weatherdata.current.weather.first?.description
+                    self?.current_temp = self?.tempConvert(temp: weatherdata.current.temp)
+                    self?.imageNmae = weatherdata.current.weather.first?.icon
+                    self?.delegate?.weatherDidUpdate()
+                }
+                
             case .failure(let error):
                 print("Weather Error: \(error)")
             }
@@ -60,9 +63,11 @@ class DataService {
         NetworkService.shared.getCurrentCityName(lat: lat, lon: lon) { [weak self] result in
             switch result {
             case .success(let cityNameData):
-                self?.cityName = cityNameData.first?.name
-                self?.delegate?.weatherDidUpdate()
-                print(cityNameData)
+                DispatchQueue.main.async {
+                    self?.cityName = cityNameData.first?.name
+                    self?.delegate?.weatherDidUpdate()
+                    print(cityNameData)
+                }
             case .failure(let error):
                 print("City Name Error: \(error)")
             }
