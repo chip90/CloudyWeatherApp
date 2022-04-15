@@ -18,7 +18,7 @@ class MainVC: UIViewController {
     @IBOutlet weak var weatherDetails: UICollectionView!
     
     enum weatherSelector {
-        case history, today, week
+        case today, week
     }
     
     var selectedWeather: weatherSelector = .today
@@ -30,11 +30,6 @@ class MainVC: UIViewController {
         
         DataService.instance.delegate = self
         DataService.instance.getLocation()
-    }
-    
-    @IBAction func yesterdayBtn(_ sender: Any) {
-        selectedWeather = .history
-        weatherDetails.reloadData()
     }
     
     @IBAction func todayBtn(_ sender: Any) {
@@ -57,19 +52,25 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource {
             return DataService.instance.daily.count
         case .week:
             return DataService.instance.daily.count
-        case .history:
-            break
         }
-        return DataService.instance.daily.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
         let cell = weatherDetails.dequeueReusableCell(withReuseIdentifier: "weatherCell", for: indexPath) as! WeatherDetailCell
-        let day = DataService.instance.daily[indexPath.row]
-        cell.updateView(day: day)
-        return cell
+        
+        switch selectedWeather {
+        case .today:
+            let hour = DataService.instance.hourly[indexPath.row]
+            cell.updateHourView(hour: hour)
+            return cell
+        case .week:
+            let day = DataService.instance.daily[indexPath.row]
+            cell.updateDayView(day: day)
+            return cell
+        }
+        
+        
+        
     }
 }
 

@@ -26,6 +26,7 @@ class DataService {
     
     var lat: Double = 0.0
     var lon: Double = 0.0
+    var dt: TimeInterval = 0
     
     weak var delegate: DataServiceDelegate?
     
@@ -52,10 +53,6 @@ class DataService {
                 print("Weather Error: \(error)")
             }
         }
-        
-    }
-    
-    func getHistory() {
         
     }
     

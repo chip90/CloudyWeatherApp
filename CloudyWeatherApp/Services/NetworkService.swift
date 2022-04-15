@@ -22,16 +22,6 @@ class NetworkService {
         makeRequest(from: url, completion: completion)
     }
     
-    func getHistoryWeather(lat: Double, lon: Double, dateTime: TimeInterval, completion: @escaping (Result<HistoryWeatherData, Error>) -> Void) {
-        
-        let apiKey = "65fa0a6c945f630a7628c3c99437015a"
-        let URL_BASE = "https://api.openweathermap.org/data/2.5/onecall/timemachine?"
-        
-        let url = URL(string: "\(URL_BASE)lat=\(lat)&lon=\(lon)&dt=\(dateTime)&appid=\(apiKey)")!
-        print(url)
-        makeRequest(from: url, completion: completion)
-    }
-    
     func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (Result<WeatherData, Error>) -> Void) {
         
         let exclude = "minutely"

@@ -21,7 +21,17 @@ class WeatherDetailCell: UICollectionViewCell {
         
         let dateText = dateFormatter.string(from: date as Date)
         return dateText
+    }
+    
+    func hourFormatting(value: TimeInterval) -> String {
+        let date = NSDate(timeIntervalSince1970: value)
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        
+        let dateText = dateFormatter.string(from: date as Date)
+        return dateText
     }
     
     func tempConvert(temp: Double) -> String {
@@ -30,9 +40,15 @@ class WeatherDetailCell: UICollectionViewCell {
         return String(roundedTemp)
     }
     
-    func updateView(day: DailyWeather) {
+    func updateDayView(day: DailyWeather) {
         lblDate.text = dateFormatting(value: day.dt)
-        lblTemp.text = tempConvert(temp: day.temp.day)
+        lblTemp.text = "L: " + tempConvert(temp: day.temp.min) + " H: " + tempConvert(temp: day.temp.max)
         imgWeather.image = UIImage(named: DataService.instance.getImageName(icon: day.weather.first?.icon ?? "Cloudy"))
+    }
+    
+    func updateHourView(hour: HourlyWeather) {
+        lblDate.text = hourFormatting(value: hour.dt)
+        lblTemp.text = tempConvert(temp: hour.temp)
+        imgWeather.image = UIImage(named: DataService.instance.getImageName(icon: hour.weather.first?.icon ?? "Cloudy"))
     }
 }
