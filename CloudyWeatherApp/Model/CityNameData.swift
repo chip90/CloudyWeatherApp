@@ -13,13 +13,8 @@ import Foundation
 
 struct City: Codable {
     let name: String
-    let local_names: Local
     let lat: Double
     let lon: Double
     let country: String
     let state: String
-}
-
-struct Local: Codable {
-    let en: String
 }
